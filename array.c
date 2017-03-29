@@ -1317,6 +1317,23 @@ rb_ary_at(VALUE ary, VALUE pos)
 
 /*
  *  call-seq:
+ *     ary.second -> obj or nil
+ *
+ *  Returns the second element.
+ *
+ *     a = [ "q", "r", "s", "t" ]
+ *     a.second #=> "r"
+ */
+
+static
+VALUE
+rb_ary_second(VALUE ary)
+{
+    return rb_ary_entry(ary, 1);
+}
+
+/*
+ *  call-seq:
  *     ary.first     ->   obj or nil
  *     ary.first(n)  ->   new_ary
  *
@@ -1341,6 +1358,8 @@ rb_ary_first(int argc, VALUE *argv, VALUE ary)
 	return ary_take_first_or_last(argc, argv, ary, ARY_TAKE_FIRST);
     }
 }
+
+
 
 /*
  *  call-seq:
@@ -6250,6 +6269,8 @@ Init_Array(void)
     rb_define_method(rb_cArray, "any?", rb_ary_any_p, 0);
     rb_define_method(rb_cArray, "dig", rb_ary_dig, -1);
     rb_define_method(rb_cArray, "sum", rb_ary_sum, -1);
+
+    rb_define_method(rb_cArray, "second", rb_ary_second, 0);
 
     id_cmp = rb_intern("<=>");
     id_random = rb_intern("random");
